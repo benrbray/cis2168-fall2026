@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Project Info-->
+  <groupId>tuj</groupId>
+  <artifactId>cis2168</artifactId>
+  <version>1</version>
+
+  <!-- Use Java 25-->
+  <properties>
+    <maven.compiler.source>25</maven.compiler.source>
+    <maven.compiler.target>25</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <!-- Code Folder -->
+  <build>
+    <!-- Specify your custom directory relative to the pom.xml -->
+    <sourceDirectory>src</sourceDirectory>
+  </build>
+
+  <dependencies>
+  <!-- https://mvnrepository.com/artifact/org.processing/core/4.5.6 -->
+    <dependency>
+        <groupId>org.processing</groupId>
+        <artifactId>core</artifactId>
+        <version>4.5.6</version>
+        <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>
