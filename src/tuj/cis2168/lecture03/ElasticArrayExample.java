@@ -9,8 +9,13 @@ public class ElasticArrayExample {
 
 ////////////////////////////////////////////////////////////
 
-interface Collection {
-  
+interface Collection<E> {
+  int size();
+  int isEmpty();
+
+  void add(E element);
+  boolean remove(E element);
+  void clear();
 }
 
 interface IntList {

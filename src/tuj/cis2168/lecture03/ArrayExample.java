@@ -16,7 +16,5 @@ public class ArrayExample {
     // element access is only checked at runtime
     // Runtime: ArrayIndexOutOfBoundsException
     array1[100] = 10;
-
-    
   }
 }
