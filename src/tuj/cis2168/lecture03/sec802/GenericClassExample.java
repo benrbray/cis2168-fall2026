@@ -70,40 +70,6 @@ interface List<T> {
   // more methods to come later...
 }
 
-class ArrayList<T> implements List<T> {
-
-  private int size;
-  private T[] data;
-
-  ArrayList() {
-    // TODO: for next week
-  }
-
-  @Override
-  public void append(T element) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'append'");
-  }
-
-  @Override
-  public void insert(int index, T element) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'insert'");
-  }
-
-  @Override
-  public T remove(int index) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'remove'");
-  }
-
-  @Override
-  public int size() {
-    
-  }
-
-}
-
 class PairStringInt {
   private String left;
   private Integer right;
