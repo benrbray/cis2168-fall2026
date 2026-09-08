@@ -7,12 +7,12 @@ import java.util.Comparator;
 public class BibliographyStarter {
   public static void main() {
     testPartB();
-    testPartC();
+    // testPartC();
   }
 
   public static void testPartB() {
     ArrayList<Reference> references = getReferenceList();
-    Collections.sort(references);
+    // Collections.sort(references);
     printBibliography(references);
   }
 
@@ -67,12 +67,24 @@ class Reference implements Comparable<Reference> {
 
   @Override
   public String toString() {
-    throw new UnsupportedOperationException("Implement Me!");
+    return this.authorLastName + " " + this.year + ", \"" + this.title + "\"";
   }
 
   @Override
   public int compareTo(Reference other) {
-    throw new UnsupportedOperationException("Implement Me!");
+    if(this.authorLastName.equals(other.authorLastName)) { 
+      // break the tie using the year
+      if(this.year > other.year) {
+        return +1;
+      } else if(this.year < other.year) {
+        return -1;
+      } else {
+        // break the tie using the title
+        return this.title.compareTo(other.title);
+      }
+    } else {
+      return this.authorLastName.compareTo(other.authorLastName);
+    }
   }
 }
 
