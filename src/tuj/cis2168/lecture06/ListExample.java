@@ -2,7 +2,7 @@ package tuj.cis2168.lecture06;
 
 public class ListExample {
   public static void main() {
-    Cis2168List<String> example = new SinglyLinkedList<>();
+    Cis2168List<String> example = new SinglyLinkedList802<>();
     example.add("apricot");
     example.add("banana");
     example.add("cherry");
