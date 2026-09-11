@@ -54,10 +54,7 @@ public class SinglyLinkedList802<T> implements Cis2168List<T> {
     // 0. ensure the new element is not null
     Objects.requireNonNull(element);
     // 1. insert a new node in between node and node.next
-    Node<T> newNode = new Node<>(element, node.next);
-    node.next = newNode;
     // 2. increase the size of the list
-    this.count += 1;
   }
 
   /// Creates a new node for `element`, and uses
@@ -68,10 +65,7 @@ public class SinglyLinkedList802<T> implements Cis2168List<T> {
     Objects.requireNonNull(element);
     // 1. replace the current head with a
     //    new node, linked to the old head
-    Node<T> newHead = new Node<>(element, this.head);
-    this.head = newHead;
     // 2. increase the size of this list
-    this.count += 1;
   }
 
   private Node<T> nodeAtIndex(int index) {
@@ -79,15 +73,6 @@ public class SinglyLinkedList802<T> implements Cis2168List<T> {
     Objects.checkIndex(index, this.count);
     // 1. starting from the head, follow links
     //    until reaching the desired `index`
-    Node<T> current = this.head;
-    int k = 0;
-    while(k < index) {
-      // follow the next link in the linked list
-      current = current.next;
-      k++;
-    }
-
-    return current;
   }
 
   //////////////////////////////////////////////////////////
@@ -100,7 +85,6 @@ public class SinglyLinkedList802<T> implements Cis2168List<T> {
   @Override
   public void add(T element) {
     // re-use the insert() method
-    this.insert(this.count, element);
   }
 
   @Override
@@ -112,11 +96,8 @@ public class SinglyLinkedList802<T> implements Cis2168List<T> {
     
     if(index == 0) {
       // 2. special case:  replacing the head
-      this.addFirst(element);
     } else {
       // 3. general case:  index > 0
-      Node<T> nodeBefore = this.nodeAtIndex(index-1);
-      this.addAfter(nodeBefore, element);
     }
   }
 
@@ -125,17 +106,13 @@ public class SinglyLinkedList802<T> implements Cis2168List<T> {
     // 1. make sure the new element is not null
     Objects.requireNonNull(element);
     // 2. find the node at the specified index
-    Node<T> node = this.nodeAtIndex(index);
     // 3. replace the node's data with the new element
-    node.data = element;
   }
 
   @Override
   public T get(int index) {
     // 1. find the node at the specified index
-    Node<T> node = this.nodeAtIndex(index);
     // 2. return its data
-    return node.data;
   }
 
   @Override
@@ -145,28 +122,14 @@ public class SinglyLinkedList802<T> implements Cis2168List<T> {
 
     // 1. starting from the head, follow links until
     //    we find element or reach the end of the list
-    Node<T> current = this.head;
-    int k = 0;
-
-    while(k < this.count) {
-      // make the comparison
-      if(element.equals(current.data)) {
-        return k;
-      }
-
-      // follow the next link
-      current = current.next;
-      k++;
-    }
 
     // 2. if we finish the loop without finding a match,
     //    it means the list doesn't contain our query
-    return -1;
   }
 
   @Override
   public boolean contains(T element) {
-    return (this.indexOf(element) > -1);
+
   }
 
   @Override
@@ -177,34 +140,20 @@ public class SinglyLinkedList802<T> implements Cis2168List<T> {
     if(index == 0) {
       // 1. special case:  remove the head
       // 1a. keep a reference to the removed element
-      T removed = this.head.data;
       // 1b. rearrange the links to skip over removed
-      this.head = this.head.next;
       // 1c. decrease the size of the list
-      this.count--;
       // 1d. return the removed element
-      return removed;
     } else {
       // 2a. general case:  find the preceding element
-      Node<T> nodeBefore = this.nodeAtIndex(index-1);
       // 2b. keep a reference to the removed element
-      T removed = nodeBefore.next.data;
       // 2c. rearrange the links to skip over removed
-      Node<T> nodeAfter = nodeBefore.next.next;
-      nodeBefore.next = nodeAfter;
       // 2c. decrease the size of the list
-      this.count--;
       // 2d. return the removed element
-      return removed;
     }
   }
 
   @Override
   public void delete(T element) {
-    int idx = this.indexOf(element);
-    if(idx > -1) {
-      this.remove(idx);
-    }
   }
   
 }
