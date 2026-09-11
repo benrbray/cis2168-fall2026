@@ -23,7 +23,6 @@ public class ListExample {
     example.remove(0);
     System.out.println("\n\nAfter Removal");
     printList(example);
-
   }
 
   public static <T> void printList(Cis2168List<T> list) {
