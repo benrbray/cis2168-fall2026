@@ -42,7 +42,7 @@ public class Problem3 {
   /// the following three columns:
   ///   (numElements) the number of list elements
   ///   (doublingRuntime) runtime for the doubling growth strategy
-  ///   (additiveRuntime) runtime for the additive+10 growth strategy
+  ///   (additiveRuntime) runtime for the additive+1000 growth strategy
   public static void generateRuntimeCsv(Path path) {
     // strings representing lines of CSV file
     List<String> csvLines = new ArrayList<String>();
@@ -62,8 +62,8 @@ public class Problem3 {
       // measure runtime with the doubling strategy
       long doublingRuntime = experiment(numElements, n -> n * 2);
 
-      // measure runtime with the additive+10 strategy
-      long additiveRuntime = experiment(numElements, n -> n + 10);
+      // measure runtime with the additive+1000 strategy
+      long additiveRuntime = experiment(numElements, n -> n + 1000);
 
       // write new line to CSV
       csvLines.add(numElements + "," + doublingRuntime + "," + additiveRuntime);
