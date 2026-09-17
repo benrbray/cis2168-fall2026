@@ -1,4 +1,4 @@
-package tuj.cis2168.lab02;
+package tuj.cis2168.lecture07;
 
 import java.util.Objects;
 
@@ -40,6 +40,10 @@ public class ElasticArray<T> implements Cis2168List<T> {
 
   //////////////////////////////////////////////////////////
 
+  // GROWTH RATE: O(n)
+  // if there's already enough capacity, then O(1)
+  // if we need to allocate new storage, then O(n)
+
   /// Accepts the desired size of the list as input.
   /// If there's not enough capacity, grow the storage.
   void ensureCapacity(int requiredCapacity) {
@@ -59,7 +63,7 @@ public class ElasticArray<T> implements Cis2168List<T> {
     T[] nextStorage = (T[]) new Object[nextCapacity];
 
     // 3. manually copy the old storage into the new
-    for(int i = 0; i < this.count; i++) {
+    for(int i = 0; i < this.count; i++) {  // O(n)
       nextStorage[i] = this.storage[i];
     }
 
@@ -74,20 +78,23 @@ public class ElasticArray<T> implements Cis2168List<T> {
     return count;
   }
   
+
+  // if there's already enough storage, O(1)
+  // if there's not.... O(n)
   @Override
   public void add(T element) {
     // 1. ensure storage has enough space for the new element
-    this.ensureCapacity(this.count + 1);
+    this.ensureCapacity(this.count + 1);  /// O(1)
     // 2. append the new element to the end of the list
-    this.storage[this.count] = element;
+    this.storage[this.count] = element;  // O(1)
     // 3. update the count variable
-    this.count += 1;
+    this.count += 1;                     // O(1)
   }
   
   @Override
   public void insert(int index, T element) {
     // 0. ensure the index is within bounds
-    Objects.checkIndex(index, count);
+    Objects.checkIndex(index, count + 1);
     // 1. ensure storage has enough space for the new element
     this.ensureCapacity(this.count + 1);
     // 2. shift all elements after index to the right
@@ -101,20 +108,22 @@ public class ElasticArray<T> implements Cis2168List<T> {
     this.count += 1;
   }
 
+  // Growth Rate:  O(1) constant
   @Override
   public void set(int index, T element) {
     // 0. ensure the index is within bounds
-    Objects.checkIndex(index, count);
+    Objects.checkIndex(index, count); // O(1)
     // 1. actually replace the element
-    this.storage[index] = element;
+    this.storage[index] = element; // O(1)
   }
 
+  // Growth Rate: O(1) constant
   @Override
   public T get(int index) {
     // 0. ensure the index is within bounds
-    Objects.checkIndex(index, this.count);
+    Objects.checkIndex(index, this.count);  // O(1)
     // 1. return the element
-    return this.storage[index];
+    return this.storage[index]; // O(1)
   }
 
   @Override

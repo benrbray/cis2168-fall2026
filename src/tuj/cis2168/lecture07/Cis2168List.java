@@ -1,4 +1,4 @@
-package tuj.cis2168.lab02;
+package tuj.cis2168.lecture07;
 
 public interface Cis2168List<T> {
 
