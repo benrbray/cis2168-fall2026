@@ -1,6 +1,8 @@
 package tuj.cis2168.lecture08;
 
-public interface Cis2168List<T> {
+import java.util.Iterator;
+
+public interface Cis2168List<T> extends Iterable<T> {
 
   /// Returns the current number of elements in this list.
   int size();

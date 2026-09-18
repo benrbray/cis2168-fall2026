@@ -3,56 +3,57 @@ package tuj.cis2168.lecture08;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class ElasticArray<T> implements Cis2168List<T>, Iterable<T> {
+public class ElasticArray801<T> implements Cis2168List<T>, Iterable<T> {
+
+  private static final int INITIAL_CAPACITY = 4;
 
   //////////////////////////////////////////////////////////
   
-  private static class Iter<E> implements Iterator<E> {
-    private int nextIndex;
-    private ElasticArray<E> list;
+  private static class ArrayIterator<E> implements Iterator<E> {
 
-    Iter(ElasticArray<E> list){
-      this.nextIndex = 0;
+    private int nextIndex;
+    private ElasticArray801<E> list;
+
+    ArrayIterator(ElasticArray801<E> list) {
       this.list = list;
+      this.nextIndex = 0;
     }
 
+    // O(1)
     @Override
     public boolean hasNext() {
-      return nextIndex < list.size();
+      return (this.nextIndex < list.size());
     }
 
+    // O(1)
     @Override
     public E next() {
-      E data = this.list.storage[this.nextIndex];
-      this.nextIndex++;
-
-      return data;
+      // return this.list.storage[this.nextIndex];
+      return this.list.get(this.nextIndex);
     }
-
+    
   }
 
-  @Override
   public Iterator<T> iterator() {
-    return new Iter<>(this);
+    return new ArrayIterator<>(this);
   }
 
   //////////////////////////////////////////////////////////
-  
+
   @FunctionalInterface
   public static interface GrowthStrategy {
     /// Returns the next capacity in the sequence.
     public int next(int currentCapacity);
   }
-  
+
   //////////////////////////////////////////////////////////
-  
-  private static final int INITIAL_CAPACITY = 4;
+
   private T[] storage;
   private int count;
 
   private GrowthStrategy growthStrategy;
 
-  public ElasticArray(GrowthStrategy growthStrategy) {
+  public ElasticArray801(GrowthStrategy growthStrategy) {
     // growth strategy will determine how quickly the
     // storage array grows when the list exceeds capacity
     this.growthStrategy = growthStrategy;

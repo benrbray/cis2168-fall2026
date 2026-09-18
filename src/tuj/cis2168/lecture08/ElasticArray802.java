@@ -3,56 +3,54 @@ package tuj.cis2168.lecture08;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class ElasticArray<T> implements Cis2168List<T>, Iterable<T> {
+public class ElasticArray802<T> implements Cis2168List<T>, Iterable<T> {
 
+  private static final int INITIAL_CAPACITY = 4;
+
+  
   //////////////////////////////////////////////////////////
   
-  private static class Iter<E> implements Iterator<E> {
+  private static class ArrayIterator<E> implements Iterator<E> {
     private int nextIndex;
-    private ElasticArray<E> list;
+    private ElasticArray802<E> list;
 
-    Iter(ElasticArray<E> list){
-      this.nextIndex = 0;
+    ArrayIterator(ElasticArray802<E> list) {
       this.list = list;
+      this.nextIndex = 0;
     }
 
     @Override
     public boolean hasNext() {
-      return nextIndex < list.size();
+      return (this.nextIndex < this.list.size());
     }
 
     @Override
     public E next() {
-      E data = this.list.storage[this.nextIndex];
-      this.nextIndex++;
-
-      return data;
+      return this.list.storage[this.nextIndex];
     }
 
   }
 
-  @Override
   public Iterator<T> iterator() {
-    return new Iter<>(this);
+    return new ArrayIterator<>(this);
   }
-
-  //////////////////////////////////////////////////////////
   
+  //////////////////////////////////////////////////////////
+
   @FunctionalInterface
   public static interface GrowthStrategy {
     /// Returns the next capacity in the sequence.
     public int next(int currentCapacity);
   }
-  
+
   //////////////////////////////////////////////////////////
-  
-  private static final int INITIAL_CAPACITY = 4;
+
   private T[] storage;
   private int count;
 
   private GrowthStrategy growthStrategy;
 
-  public ElasticArray(GrowthStrategy growthStrategy) {
+  public ElasticArray802(GrowthStrategy growthStrategy) {
     // growth strategy will determine how quickly the
     // storage array grows when the list exceeds capacity
     this.growthStrategy = growthStrategy;

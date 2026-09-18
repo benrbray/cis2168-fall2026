@@ -3,7 +3,54 @@ package tuj.cis2168.lecture08;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class SinglyLinkedList<T> implements Cis2168List<T>, Iterable<T> {
+// interface Iterator<E> {
+//   boolean hasNext();
+//   E next();
+// }
+
+// interface Iterable<E> {
+//   Iterator<E> iterator();
+// }
+
+public class SinglyLinkedList802<T> implements Cis2168List<T>, Iterable<T> {
+
+  //////////////////////////////////////////////////////////
+  
+  private class NodeIterator<E> implements Iterator<E> {
+
+    private Node<E> nextNode;
+    private int nextIndex;
+    private SinglyLinkedList802<E> list;
+
+    NodeIterator(SinglyLinkedList802<E> list) {
+      this.list = list;
+      this.nextIndex = 0;
+      this.nextNode = this.list.head;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return (this.nextIndex < this.list.size());
+    }
+
+    @Override
+    public E next() {
+      E data = this.nextNode.data;
+      // follow the next link in the linked list
+      this.nextIndex++;
+      this.nextNode = this.nextNode.next;
+      // return the next piece of data
+      return data;
+    }
+
+    
+  }
+
+  public Iterator<T> iterator() {
+    return new NodeIterator<>(this);
+  }
+  
+  //////////////////////////////////////////////////////////
 
   /// In Java, it's considered good style to write only one
   /// class per file.  So, if a data structure needs a
@@ -30,40 +77,6 @@ public class SinglyLinkedList<T> implements Cis2168List<T>, Iterable<T> {
   }
 
   //////////////////////////////////////////////////////////
-  
-  private static class NodeIterator<E> implements Iterator<E> {
-    private Node<E> next;
-    private int nextIndex;
-    private SinglyLinkedList<E> list;
-
-    NodeIterator(SinglyLinkedList<E> list){
-      this.next = list.head;
-      this.nextIndex = 0;
-      this.list = list;
-    }
-
-    @Override
-    public boolean hasNext() {
-      return nextIndex < list.size();
-    }
-
-    @Override
-    public E next() {
-      E data = next.data;
-      this.next = this.next.next;
-      this.nextIndex++;
-
-      return data;
-    }
-
-  }
-
-  @Override
-  public Iterator<T> iterator() {
-    return new NodeIterator<>(this);
-  }
-
-  //////////////////////////////////////////////////////////
 
   /// The first node in the linked list.
   private Node<T> head;
@@ -75,7 +88,7 @@ public class SinglyLinkedList<T> implements Cis2168List<T>, Iterable<T> {
 
   //////////////////////////////////////////////////////////
   
-  public SinglyLinkedList() {
+  public SinglyLinkedList802() {
     this.head = new Node<>(null, null);
     this.count = 0;
   }
