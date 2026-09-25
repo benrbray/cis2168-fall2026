@@ -50,25 +50,37 @@ public class DoubleLinkedList802<T> implements Cis2168List<T> {
   
   private static class NodeIterator<E> implements Iterator<E> {
     private Node<E> next;
+    private Node<E> current;
+    private DoubleLinkedList802<E> list;
 
-    NodeIterator(DoubleLinkedList801<E> list) {
+    NodeIterator(DoubleLinkedList802<E> list) {
       this.next = list.head;
+      this.list = list;
     }
 
     @Override
     public boolean hasNext() {
-      // TODO
+      return (this.next != null);
     }
 
     @Override
     public E next() {
-      // TODO
+      this.current = next;
+      this.next = this.next.next;
+      return current.data;
+    }
+
+    /// Removes the most recently returned node.
+    @Override
+    public void remove() {
+      // remove this.current from the list
+      this.list.removeNode(this.current);
     }
   }
   
   @Override
   public Iterator<T> iterator() {
-    // TODO
+    return new NodeIterator<>(this);
   }
   
   //////////////////////////////////////////////////////////
@@ -99,15 +111,17 @@ public class DoubleLinkedList802<T> implements Cis2168List<T> {
   /// 
   private void link(Node<T> before, Node<T> after) {
     if(before != null) {
-      // TODO
+      before.next = after;
     } else {
       // after should become the new head
+      this.head = after;
     }
 
     if(after != null) {
-      // TODO
+      after.prev = before;
     } else {
       // before should become the new tail
+      this.tail = before;
     }
   }
 
@@ -117,10 +131,14 @@ public class DoubleLinkedList802<T> implements Cis2168List<T> {
     // Requirement: `before` cannot be null.
     Objects.requireNonNull(before);
     // 1. get a reference to the after node (possibly null)
+    Node<T> after = before.next;
     // 2. create a new node for the "middle"
     Node<T> middle = new Node<T>(element);
     // 3. link before <-> middle <-> after
+    this.link(before, middle);
+    this.link(middle, after);
     // 4. increase the size of this list
+    this.count++;
   }
 
   /// Creates a new node for `element`, and inserts it before
@@ -130,8 +148,11 @@ public class DoubleLinkedList802<T> implements Cis2168List<T> {
     Node<T> node = new Node<>(element);
     // 2. link the new node to the old head
     //    (this.link updates tail if this.head == null)
+    this.link(node, this.head);
     // 3. make this node the new head
+    this.link(null, node);
     // 4. increase the size of this list
+    this.count++;
   }
 
   //////////////////////////////////////////////////////////
@@ -155,21 +176,35 @@ public class DoubleLinkedList802<T> implements Cis2168List<T> {
     // 4. increase the size of the list
   }
 
+
+  /// O(n)
   @Override
   public T remove(int index) {
     // 0. ensure the index is valid
     Objects.checkIndex(index, this.count);
+    Node<T> removed = this.nodeAtIndex(index);  // O(n)
+    return this.removeNode(removed); // O(1)
+  }
+  
+  /// O(1)
+  private T removeNode(Node<T> removed) {
+    // 0. make sure the removed node is not null
+    Objects.requireNonNull(removed);
     // 1. find references to before, removed, after
-    
+    Node<T> before = removed.prev;
+    Node<T> after = removed.next;
     // 2. link before <-> after
-
+    this.link(before, after);
     // 3. nullify removed node's references -- this is
     //    not strictly necessary -- but has some advantages:
     //    *  maintains invariant that x.next.prev = x
     //    *  invalidates iterators with references to the removed node
-
+    removed.next = null;
+    removed.prev = null;
     // 4. decrease the size of the list
+    this.count--;
     // 5. return the removed data
+    return removed.data;
   }
 
   //////////////////////////////////////////////////////////
