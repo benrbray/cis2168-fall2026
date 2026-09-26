@@ -13,7 +13,7 @@ public class Problem3 {
     // generate timestamp to use in file name
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
     String timestamp = LocalDateTime.now().format(formatter);
-    String fileName = "data/growth_strategy_" + timestamp + ".csv";
+    String fileName = "growth_strategy_" + timestamp + ".csv";
     
     // run experiments and generate csv
     Path filePath = Path.of(fileName);
