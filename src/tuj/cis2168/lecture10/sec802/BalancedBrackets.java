@@ -4,7 +4,10 @@ import tuj.cis2168.lecture10.Stack;
 
 public class BalancedBrackets {
   public static void main() {
-    System.out.println(isBalanced("{ 5 * ( c + 2 ) + {3 + (4*7)] }"));
+    System.out.println(isBalanced("((5)")); // false
+    System.out.println(isBalanced("(5))")); // false
+    System.out.println(isBalanced("{(5 + 7]}"));  // false
+    System.out.println(isBalanced("{(5+7) * 8 + (3 * [4+1])}")); // true
   }
 
   static String LEFT_BRACKETS = "({[";
@@ -25,27 +28,38 @@ public class BalancedBrackets {
     return RIGHT_BRACKETS.charAt(idx);
   }
 
+  /// O(n) linear
   public static boolean isBalanced(String expr) {
     // 1. Create an empty stack of characters.
-
-    // 2. Our initial belief is that the stack is balanced,
-    //    until we find evidence (mismatched brackets) otherwise.
-    boolean balanced = true;
+    Stack<Character> leftBrackets = new ElasticArrayStack<>();
 
     // 3. Loop over every character of the input string.
-    for(int i = 0; i < expr.length(); i++) {
+    // O(n) linear
+    for(int i = 0; i < expr.length(); i++) { // exactly n times
       // 3a. Get the next character in the expression.
       Character c = expr.charAt(i);
       // 3b. If next character is a left bracket,
       //     push it onto the stack.
-
+      if(isLeftBracket(c)) {
+        leftBrackets.push(c); // O(1)
+      }
       // 3c. If next character is a right bracket,
       //     pop the stack and ensure that they match.
-
+      if(isRightBracket(c)) {
+        if(leftBrackets.isEmpty()) {
+          return false; // we have an unmatched right bracket
+        } else {
+          Character left = leftBrackets.pop(); // O(1)
+          Character right = matchingRightBracket(left);
+          if(!c.equals(right)) {
+            return false;
+          }
+        }
+      }
     }
     
     // 4. Return true if balanced AND the stack is empty.
     //    (non-empty stack means there are un-closed brackets!)
-    return false;
+    return leftBrackets.isEmpty();
   }
 }

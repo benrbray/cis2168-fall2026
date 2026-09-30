@@ -176,6 +176,8 @@ public class ElasticArray<T> implements Cis2168List<T> {
     return this.indexOf(element) >= 0;
   }
 
+  // O(n) in general
+  // O(1) to remove the last element
   @Override
   public T remove(int index) {
     // 0. ensure the index is within bounds
