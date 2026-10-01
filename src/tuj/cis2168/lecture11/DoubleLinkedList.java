@@ -40,7 +40,7 @@ public class DoubleLinkedList<T> implements Cis2168List<T> {
 
   //////////////////////////////////////////////////////////
   
-  DoubleLinkedList() {
+  public DoubleLinkedList() {
     this.head = null;
     this.tail = null;
     this.count = 0;
