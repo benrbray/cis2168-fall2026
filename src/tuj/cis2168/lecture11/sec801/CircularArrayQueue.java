@@ -32,29 +32,68 @@ public class CircularArrayQueue<E> implements Queue<E> {
   
   private void ensureCapacity(int numElements) {
     // 1. compare the current capacity to the current size
+    int currentCapacity = this.storage.length;
+    if(numElements <= currentCapacity) { 
+      return;
+    }
+
     // 2. decide the new capacity
+    int newCapacity = Math.max(numElements, currentCapacity * 2);
 
     // 3. allocate a larger array and copy everything over
+    @SuppressWarnings("unchecked")
+    E[] larger = (E[]) new Object[newCapacity];
 
     // 4. place all existing elements in correct order
     //    starting from index 0 of the larger array
     // arraycopy(E[] src, int srcPos, E[] dest, int destPos, int length)
+    System.arraycopy(this.storage, this.front, larger, 0, currentCapacity - front);
+    System.arraycopy(this.storage, 0, larger, currentCapacity - front, front);
 
     // 5. update front and storage
-    // TODO
+    this.storage = larger;
+    this.front = 0;
   }
 
   //////////////////////////////////////////////////////////
+  
+  public String toString() {
+    String result = "";
+
+    for(int i = 0; i < this.storage.length; i++) {
+      if(this.storage[i] == null) {
+        result += ".";
+      } else {
+        result += this.storage[i].toString().charAt(0);
+      }
+    }
+
+    result += "\n";
+
+    for(int i = 0; i < this.storage.length; i++){
+      if(i == this.front) {
+        result += "^";
+      } else {
+        result += " ";
+      }
+    }
+    
+    return result;
+  }
 
   @Override
   public void enqueue(E elem) {
     // 0. ensure element is not null
     Objects.requireNonNull(elem);
     // 1. ensure we have enough capacity for the new element
+    this.ensureCapacity(this.count + 1);
     // 2. add the new element into the next empty space
     //    (remember to wrap around!)
+    int capacity = this.storage.length;
+    int nextIndex = (front + count) % capacity;
+    this.storage[nextIndex] = elem;
     // 3. increase the count
-    // TODO
+    this.count++;
   }
 
   @Override
@@ -65,9 +104,18 @@ public class CircularArrayQueue<E> implements Queue<E> {
     }
 
     // 1. remove the front of the queue, keeping a reference
+    E removed = this.storage[this.front];
+    this.storage[this.front] = null;
+
     // 2. increment front index (remember to wrap it!)
+    int capacity = this.storage.length;
+    this.front = (this.front + 1) % capacity;
+
     // 3. decrease the count
+    this.count--;
+
     // 4. return the removed element
+    return removed;
   }
 
   @Override
@@ -78,12 +126,12 @@ public class CircularArrayQueue<E> implements Queue<E> {
     }
 
     // 1. return the element at the front index
-    // TODO
+    return this.storage[this.front];
   }
 
   @Override
   public boolean isEmpty() {
-    // TODO
+    return this.count == 0;
   }
 
 }

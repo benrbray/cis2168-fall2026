@@ -7,13 +7,16 @@ public class QueueExample {
     Queue<String> fruits = new CircularArrayQueue<>();
     fruits.enqueue("apple");
     System.out.println(fruits.dequeue());
+    
     fruits.enqueue("banana");
     fruits.enqueue("cherry");
     fruits.enqueue("durian");
     fruits.enqueue("eggplant");
-    fruits.enqueue("fig");
+    System.out.println(fruits);
     System.out.println(fruits.dequeue());
-    fruits.enqueue("gourd");
+    System.out.println(fruits);
+    System.out.println(fruits.dequeue());
+    System.out.println(fruits);
 
     while(!fruits.isEmpty()){
       System.out.println(fruits.dequeue());
