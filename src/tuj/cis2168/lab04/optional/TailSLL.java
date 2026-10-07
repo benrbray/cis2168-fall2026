@@ -74,6 +74,9 @@ public class TailSLL<T> implements Cis2168List<T>, Iterable<T> {
 
   /// The first node in the linked list.
   private Node<T> head;
+
+  /// NEW: The last node in the linked list.
+  private Node<T> tail;
   
   /// The number of elements in the list.
   /// Equal to the number of `Node<T>`s in the list,
@@ -84,6 +87,7 @@ public class TailSLL<T> implements Cis2168List<T>, Iterable<T> {
   
   public TailSLL() {
     this.head = new Node<>(null, null);
+    this.tail = null;
     this.count = 0;
   }
 

@@ -1,4 +1,4 @@
-package tuj.cis2168.lecture11;
+package tuj.cis2168.lab04.optional;
 
 /// An ordered collection of elements of type E that
 /// emits elements in First In, First Out (FIFO) order.
