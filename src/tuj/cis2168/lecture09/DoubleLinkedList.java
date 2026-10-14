@@ -49,21 +49,21 @@ public class DoubleLinkedList<T> implements Cis2168List<T> {
   //////////////////////////////////////////////////////////
   
   private static class NodeIterator<E> implements Iterator<E> {
-    private Node<E> next;
+    private Node<E> focus;
 
     NodeIterator(DoubleLinkedList<E> list) {
-      this.next = list.head;
+      this.focus = list.head;
     }
 
     @Override
     public boolean hasNext() {
-      return next != null;
+      return focus != null;
     }
 
     @Override
     public E next() {
-      E data = next.data;
-      this.next = this.next.next;
+      E data = this.focus.data;
+      this.focus = this.focus.next;
       return data;
     }
   }
