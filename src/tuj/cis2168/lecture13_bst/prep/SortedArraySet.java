@@ -50,6 +50,9 @@ public class SortedArraySet<E extends Comparable<E>> implements Cis2168Set<E> {
     return this.binarySearch(query, 0, this.storage.size());
   }
 
+  // O(log n)
+  // number of iterations k
+  // 2^k < n
   public int binarySearch(E query, int lowIdx, int highIdx) {
     // 0. Base Case:  Range is Empty [)
     if(lowIdx == highIdx) {
@@ -80,8 +83,8 @@ public class SortedArraySet<E extends Comparable<E>> implements Cis2168Set<E> {
   @Override
   public void add(E element) {
     // 1. calculate insertion index
-    int insertIdx = this.linearSearch(element);    // O(n)
-    // int insertIdx = this.binarySearch(element); // O(log n)
+    // int insertIdx = this.linearSearch(element);    // O(n)
+    int insertIdx = this.binarySearch(element); // O(log n)
 
     // 2. don't insert the element if it already exists
     //    (if it exists, we know it MUST be found at insertIdx)
@@ -115,11 +118,12 @@ public class SortedArraySet<E extends Comparable<E>> implements Cis2168Set<E> {
     throw new UnsupportedOperationException("Unimplemented method 'iterator'");
   }
 
+  // O(log n)
   @Override
   public boolean contains(E element) {
     // 1. calculate index where element must live if it exists
-    int insertIdx = this.linearSearch(element);    // O(n)
-    // int insertIdx = this.binarySearch(element); // O(log n)
+    // int insertIdx = this.linearSearch(element);    // O(n)
+    int insertIdx = this.binarySearch(element); // O(log n)
 
     // 2. check the element
     if(insertIdx < this.storage.size()) {
