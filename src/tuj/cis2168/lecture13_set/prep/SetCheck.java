@@ -1,6 +1,6 @@
-package tuj.cis2168.lecture13_bst.prep;
+package tuj.cis2168.lecture13_set.prep;
 
-import tuj.cis2168.lecture13_bst.Cis2168Set;
+import tuj.cis2168.lecture13_set.Cis2168Set;
 
 public class SetCheck {
   public static void main() {

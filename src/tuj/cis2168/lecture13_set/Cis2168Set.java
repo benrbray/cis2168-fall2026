@@ -1,4 +1,4 @@
-package tuj.cis2168.lecture13_bst;
+package tuj.cis2168.lecture13_set;
 
 // A collection that contains no duplicate elements.
 public interface Cis2168Set<E> extends Iterable<E> {

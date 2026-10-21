@@ -1,4 +1,4 @@
-package tuj.cis2168.lecture13_bst.prep;
+package tuj.cis2168.lecture13_set.prep;
 
 import java.util.Arrays;
 

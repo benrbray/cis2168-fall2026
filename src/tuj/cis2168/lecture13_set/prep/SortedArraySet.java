@@ -1,10 +1,10 @@
-package tuj.cis2168.lecture13_bst.prep;
+package tuj.cis2168.lecture13_set.prep;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import tuj.cis2168.lecture13_bst.Cis2168Set;
+import tuj.cis2168.lecture13_set.Cis2168Set;
 
 /// Uses a sorted ArrayList to implement the Set interface.
 public class SortedArraySet<E extends Comparable<E>> implements Cis2168Set<E> {
