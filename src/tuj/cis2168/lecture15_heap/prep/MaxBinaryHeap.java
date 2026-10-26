@@ -24,7 +24,8 @@ public class MaxBinaryHeap<E extends Comparable<E>> implements Cis2168MaxPriorit
     this.storage = new ArrayList<>();
   }
 
-  // heapify
+  // naive solution using .push in a loop would be O(n log n)
+  // but heapify is O(n)!
   MaxBinaryHeap(List<E> list) {
     // 1. insert all elements from the list in the order they come
     this.storage = new ArrayList<>(list);
@@ -133,7 +134,6 @@ public class MaxBinaryHeap<E extends Comparable<E>> implements Cis2168MaxPriorit
       }
       // Case 1c: No Children -- Done!
       else {
-        // 
         break;
       }
       
@@ -151,6 +151,7 @@ public class MaxBinaryHeap<E extends Comparable<E>> implements Cis2168MaxPriorit
 
   //////////////////////////////////////////////////////////
 
+  // aka push
   @Override
   public void insert(E element) {
     // 1. initially, insert new element at the end of the storage array
@@ -160,6 +161,7 @@ public class MaxBinaryHeap<E extends Comparable<E>> implements Cis2168MaxPriorit
     this.bubbleUp(this.storage.size() - 1);
   }
 
+  // O(log n) (linear in the depth of the tree)
   @Override
   public E popMax() {
     // 0. if the heap had only one element, simply remove and return it
@@ -178,6 +180,7 @@ public class MaxBinaryHeap<E extends Comparable<E>> implements Cis2168MaxPriorit
     return max;
   }
 
+  // O(1)
   @Override
   public E peekMax() {
     return this.storage.get(0);
