@@ -15,6 +15,7 @@ public class AdjacencyGraph implements DirectedWeightedGraph {
   
   AdjacencyGraph(int numVertices) {
     // initialize adjacency lists
+    @SuppressWarnings("unchecked")
     var edges = (List<Edge>[]) new List[numVertices];
     for(int i = 0; i < edges.length; i++) {
       edges[i] = new LinkedList<>();
